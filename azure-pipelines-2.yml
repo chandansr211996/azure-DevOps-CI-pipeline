@@ -16,12 +16,10 @@ stages:
          # Task-1: Build Docker Image and push to Azure Container Registry ACR
          - task: Docker@2
            inputs:
-             containerRegistry: 'askcontainerDT'
-             repository: 'app1'
+             containerRegistry: 'PrimarySC_ACR'
+             repository: 'app'
              command: 'buildAndPush'
              Dockerfile: '**/Dockerfile'
-             tags: 
-               $(tag)
         
          # Task 2 publish build artifacts
          - task: PublishBuildArtifacts@1
