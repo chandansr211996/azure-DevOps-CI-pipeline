@@ -2,54 +2,45 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: chandansrazuredevopscipipeline-nginx-deployment
-  labels:
-    app: chandansrazuredevopscipipeline-nginx
+  namespace: dev
 spec:
+  progressDeadlineSeconds: 900  # Increased progress deadline to 900 seconds (15 minutes)
   replicas: 1
   selector:
     matchLabels:
       app: chandansrazuredevopscipipeline-nginx
-  progressDeadlineSeconds: 900  # Increased progress deadline to 900 seconds (15 minutes)
   template:
     metadata:
       labels:
         app: chandansrazuredevopscipipeline-nginx
     spec:
       containers:
-        - name: chandansrazuredevopscipipeline-nginx
-          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)
-          ports:
-            - containerPort: 80
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 15
-            periodSeconds: 20
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: chandansrazuredevopscipipeline-nginx-loadbalancer-service
-  labels:
-    app: chandansrazuredevopscipipeline-nginx
-spec:
-  type: LoadBalancer
-  selector:
-    app: chandansrazuredevopscipipeline-nginx
-  ports:
-    - port: 80
-      targetPort: 80
+      - name: chandansrazuredevopscipipeline-nginx
+        image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)  # Replace with actual build ID
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 250m
+            memory: 64Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 20
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
+      imagePullSecrets:
+      - name: dev-secret
