@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app1-nginx
-          image: myacrcontainerregistry1389.azurecr.io/app1
+          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:46
           ports:
             - containerPort: 80
           readinessProbe:
