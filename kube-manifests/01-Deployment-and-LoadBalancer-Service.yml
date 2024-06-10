@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: chandansrazuredevopscipipeline-nginx
-  progressDeadlineSeconds: 600  # Increase progress deadline
+  progressDeadlineSeconds: 900  # Increased progress deadline to 900 seconds (15 minutes)
   template:
     metadata:
       labels:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: chandansrazuredevopscipipeline-nginx
-          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:46
+          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:46  # Ensure correct image tag
           ports:
             - containerPort: 80
           readinessProbe:
