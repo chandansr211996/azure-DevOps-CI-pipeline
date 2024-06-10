@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: chandansrazuredevopscipipeline-nginx
-          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:46  # Ensure correct image tag
+          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)
           ports:
             - containerPort: 80
           readinessProbe:
