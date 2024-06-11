@@ -15,8 +15,8 @@ spec:
         app: app1-nginx
     spec:
       containers:
-        - name: app1-nginx   # Updated container name
-          image: askcontainerDT.azurecr.io/app1
+        - name: app1-nginx
+          image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)  # Modified image reference
           ports:
             - containerPort: 80
 ---
