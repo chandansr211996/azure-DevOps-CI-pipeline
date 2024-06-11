@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app1-nginx-deployment
+  name: chandansrazuredevopscipipeline-nginx-deployment
   labels:
-    app: app1-nginx
+    app: chandansrazuredevopscipipeline-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app1-nginx
+      app: chandansrazuredevopscipipeline-nginx
   template:
     metadata:
       labels:
-        app: app1-nginx
+        app: chandansrazuredevopscipipeline-nginx
     spec:
       containers:
-        - name: app1-nginx
+        - name: chandansrazuredevopscipipeline-nginx
           image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)  # Modified image reference
           ports:
             - containerPort: 80
@@ -23,13 +23,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app1-nginx-loadbalancer-service
+  name: chandansrazuredevopscipipeline-nginx-loadbalancer-service
   labels:
-    app: app1-nginx
+    app: chandansrazuredevopscipipeline-nginx
 spec:
   type: LoadBalancer
   selector:
-    app: app1-nginx
+    app: chandansrazuredevopscipipeline-nginx
   ports:
     - port: 80
       targetPort: 80
