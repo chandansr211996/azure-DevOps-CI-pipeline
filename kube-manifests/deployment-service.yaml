@@ -9,47 +9,29 @@ spec:
   selector:
     matchLabels:
       app: chandansrazuredevopscipipeline-nginx
-  progressDeadlineSeconds: 600
   template:
     metadata:
       labels:
         app: chandansrazuredevopscipipeline-nginx
     spec:
       containers:
-        - name: askcontainerDT-nginx
-          image: askcontainerdt.azurecr.io/chandansrazuredevopscipipeline
+        - name: chandansrazuredevopscipipeline-nginx  # Ensure this name is lowercase and alphanumeric
+          image: askcontainerdt.azurecr.io/chandansrazuredevopscipipeline:106  # Adjusted to lowercase
           ports:
             - containerPort: 80
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 15
-            periodSeconds: 20
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+         imagePullSecrets:
+           - name: dev-secret
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: chandansrazuredevopscipipeline-nginx-loadbalancer-service
+  name: app1-nginx-loadbalancer-service
   labels:
-    app: chandansrazuredevopscipipeline-nginx
+    app: app1-nginx
 spec:
   type: LoadBalancer
   selector:
-    app: chandansrazuredevopscipipeline-nginx
+    app: app1-nginx
   ports:
     - port: 80
       targetPort: 80
