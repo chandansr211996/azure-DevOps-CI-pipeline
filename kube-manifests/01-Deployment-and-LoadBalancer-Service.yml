@@ -1,46 +1,8 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: chandansrazuredevopscipipeline-nginx-deployment
-  namespace: dev
+  name: mypod
 spec:
-  progressDeadlineSeconds: 900  # Increased progress deadline to 900 seconds (15 minutes)
-  replicas: 1
-  selector:
-    matchLabels:
-      app: chandansrazuredevopscipipeline-nginx
-  template:
-    metadata:
-      labels:
-        app: chandansrazuredevopscipipeline-nginx
-    spec:
-      containers:
-      - name: chandansrazuredevopscipipeline-nginx
-        image: askcontainerDT.azurecr.io/chandansrazuredevopscipipeline:$(Build.BuildId)  # Replace with actual build ID
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 250m
-            memory: 64Mi
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-          periodSeconds: 20
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
-          periodSeconds: 10
-          failureThreshold: 3
-      imagePullSecrets:
-      - name: dev-secret
+  containers:
+  - name: askcontainerDT
+    image: nginx:latest
