@@ -15,7 +15,7 @@ spec:
         app: app1-nginx
     spec:
       containers:
-        - name: app1-nginx
+        - name: app1-nginx   # Updated container name
           image: askcontainerDT.azurecr.io/app1
           ports:
             - containerPort: 80
@@ -33,5 +33,3 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-
-
