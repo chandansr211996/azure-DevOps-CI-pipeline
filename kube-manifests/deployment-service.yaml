@@ -15,12 +15,12 @@ spec:
         app: chandansrazuredevopscipipeline-nginx
     spec:
       containers:
-        - name: askcontainerdt-nginx  # Ensure this name is lowercase and alphanumeric
+        - name: askcontainerdt-nginx  # Corrected name
           image: askcontainerdt.azurecr.io/chandansrazuredevopscipipeline:106
           ports:
             - containerPort: 80
-          imagePullSecrets:
-            - name: dev-secret
+      imagePullSecrets:                # Corrected indentation
+        - name: dev-secret
 ---
 apiVersion: v1
 kind: Service
